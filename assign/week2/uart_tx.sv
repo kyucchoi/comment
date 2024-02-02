@@ -35,11 +35,16 @@ module main(
                     next_state = START_BIT;
             START_BIT:
                 next_state = DATA_BIT;
-            DATA_BIT:
-                if (cnt_data_bit >= MSG_LEN*8)
+            DATA_BIT: begin
+                tx_reg <= hello_world[cnt_data_bit[3:0]];
+                if (cnt_data_bit >= MSG_LEN*8 - 1) begin
+                    cnt_data_bit <= 0;
                     next_state = STOP_BIT;
-                else
+                end else begin
+                    cnt_data_bit <= cnt_data_bit + 1;
                     next_state = DATA_BIT;
+                end
+            end
             STOP_BIT:
                 next_state = DELAY;
             DELAY:
