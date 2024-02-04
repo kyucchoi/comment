@@ -6,15 +6,15 @@ reg clk = 0, rst;
 wire tx;
 
 always begin
-    #500000
+    #50000
     clk = ~clk;
 end
 
 initial begin
     rst = 0;
-    #100
+    #10
     rst = 1;
-    #10000
+    #1000
     rst = 0;
 end
 
